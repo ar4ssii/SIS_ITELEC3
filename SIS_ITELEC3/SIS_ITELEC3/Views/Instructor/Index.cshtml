@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SIS_ITELEC3.Models.Instructors>
+@{
+    ViewBag.Title = "Instructors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    @Html.ActionLink("New Instructor", "New", "Instructor", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="instructor" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Overload Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var instructor in Model)
+        {
+            <tr>
+                <td>@instructor.Name</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿@model SIS_ITELEC3.Models.Instructors
+@{
+    ViewBag.Title = "InstructorForm";
+}
+
+@{
+    var title = Model.Id == 0 ? "New" : "Edit";
+}
+
+
+<h2>@title</h2>
+
+@using (Html.BeginForm("Save", "Instructor"))
+{
+    <div class="form-group">
+        @Html.LabelFor(i => i.Name)
+        @Html.TextAreaFor(i => i.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.isOverload)
+        @Html.DropDownListFor(i => i.isOverload, new List<SelectListItem>
+        {
+            new SelectListItem { Text = "True", Value = "true" },
+            new SelectListItem { Text = "False", Value = "false" }
+        }, "Select Overload Status", new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.isOverload)
+    </div>
+    @Html.HiddenFor(i => i.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
