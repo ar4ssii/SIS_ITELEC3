@@ -1,0 +1,25 @@
+﻿@model SIS_ITELEC3.Models.StudentModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student List</h2>
+<p>
+    @Html.ActionLink("New Student", "New", "Students", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Delete</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="#">Juan</a></td>
+            <td> <button class="btn btn-sm btn-danger">Delete</button> </td>
+        </tr>
+    </tbody>
+</table>
