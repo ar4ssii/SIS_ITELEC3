@@ -13,5 +13,8 @@ namespace SIS_ITELEC3.Models
 
         [StringLength(255)]
         public string Description { get; set; }
+
+        public Students Student { get; set; }
+        public int StudentId { get; set; }
     }
 }

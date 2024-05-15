@@ -14,6 +14,12 @@ namespace SIS_ITELEC3.App_Start
         {
             Mapper.CreateMap<Instructors, InstructorsDto>();
             Mapper.CreateMap<InstructorsDto, Instructors>();
+
+            Mapper.CreateMap<Subjects, SubjectsDto>();
+            Mapper.CreateMap<SubjectsDto, Subjects>();
+
+            Mapper.CreateMap<Students, StudentsDto>();
+            Mapper.CreateMap<StudentsDto, Students>();
         }
     }
 }

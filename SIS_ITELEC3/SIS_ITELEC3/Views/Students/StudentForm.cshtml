@@ -1,0 +1,66 @@
+﻿@model SIS_ITELEC3.Models.Students
+@{
+    ViewBag.Title = "StudentForm";
+}
+
+@{
+    var title = Model.Id == 0 ? "New" : "Edit";
+}
+
+<h2>@title</h2>
+
+@using (Html.BeginForm("Save", "Students"))
+{
+    <div class="form-group">
+        @Html.LabelFor(s => s.Name)
+        @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Address)
+        @Html.TextBoxFor(s => s.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Address)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Year)
+        @Html.TextBoxFor(s => s.Year, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Year)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Section)
+        @Html.TextBoxFor(s => s.Section, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Section)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Birthdate)
+        @Html.TextBoxFor(s => s.Birthdate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @id = "birthdate" })
+        @Html.ValidationMessageFor(s => s.Birthdate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(s => s.Age)
+        @Html.TextBoxFor(s => s.Age, new { @class = "form-control", @id = "age", @readonly = "readonly" })
+        @Html.ValidationMessageFor(s => s.Age)
+    </div>
+
+    @Html.HiddenFor(s => s.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#birthdate").change(function () {
+                var dob = new Date($(this).val());
+                var today = new Date();
+                var age = today.getFullYear() - dob.getFullYear();
+                var m = today.getMonth() - dob.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+                $("#age").val(age);
+            });
+        });
+    </script>
+}

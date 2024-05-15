@@ -1,4 +1,5 @@
 ﻿using SIS_ITELEC3.Models;
+using SIS_ITELEC3.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,32 +24,49 @@ namespace SIS_ITELEC3.Controllers
         // GET: Instructor
         public ActionResult Index()
         {
-            var instructors = _context.Instructors.ToList();
-            return View(instructors);
+            return View();
         }
 
         public ActionResult New()
         {
-            var instructors = new Instructors();
-            return View("InstructorForm", instructors);
+            var subjects = _context.Subjects.ToList();
+            var viewModel = new InstructorFormViewModel
+            {
+                Instructor = new Instructors(),
+                Subjects = subjects,
+            };
+            return View("InstructorForm", viewModel);
         }
 
         public ActionResult Edit(int id)
         {
             var instructors = _context.Instructors.SingleOrDefault(i => i.Id == id);
 
-            if(instructors == null)
+            if (instructors == null)
                 return HttpNotFound();
 
-            return View("InstructorForm", instructors);
+            var viewModel = new InstructorFormViewModel
+            {
+                Instructor = instructors,
+                Subjects = _context.Subjects.ToList()
+            };
+
+            return View("InstructorForm", viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 
         public ActionResult Save(Instructors instructor)
         {
             if (!ModelState.IsValid)
             {
-                var instructors = _context.Instructors.ToList();
-                return View("InstructorForm", instructors);
+                var viewModel = new InstructorFormViewModel
+                {
+                    Instructor = instructor,
+                    Subjects = _context.Subjects.ToList()
+                };
+                return View("InstructorForm", viewModel);
             }
 
             if (instructor.Id == 0)
@@ -60,6 +78,7 @@ namespace SIS_ITELEC3.Controllers
                 var instructorInDB = _context.Instructors.Single(i => i.Id == instructor.Id);
                 instructorInDB.Name = instructor.Name;
                 instructorInDB.isOverload = instructor.isOverload;
+                instructorInDB.SubjectId = instructor.SubjectId;
             }
 
             _context.SaveChanges();

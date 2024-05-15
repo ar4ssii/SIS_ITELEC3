@@ -13,5 +13,8 @@ namespace SIS_ITELEC3.Models
 
         [Range(1.0,5.0)]
         public double Rating { get; set; }
+        public Students Student { get; set; }
+        public int StudentId { get; set; }
+
     }
 }

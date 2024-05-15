@@ -21,7 +21,9 @@ namespace SIS_ITELEC3.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Subjects> Subjects { get; set; }
-        public DbSet<StudentModels> Students { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Grades> Grades { get; set; }
+        public DbSet<Courses> Courses { get; set; }
         public DbSet<Instructors> Instructors { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

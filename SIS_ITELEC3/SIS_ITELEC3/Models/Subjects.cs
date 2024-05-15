@@ -16,8 +16,5 @@ namespace SIS_ITELEC3.Models
         [Required]
         public string Semester { get; set; }
 
-        public Instructors Instructor { get; set; }
-        [Required]
-        public int InstructorId { get; set; }
     }
 }
