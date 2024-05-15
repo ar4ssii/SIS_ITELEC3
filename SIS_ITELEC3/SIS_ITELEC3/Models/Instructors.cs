@@ -9,10 +9,10 @@ namespace SIS_ITELEC3.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool isOverload { get; set; }   
-
+        public bool isOverload { get; set; }
         public Subjects Subject { get; set; }
 
         public int SubjectId { get; set; }
+
     }
 }

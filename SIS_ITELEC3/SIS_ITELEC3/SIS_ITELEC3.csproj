@@ -224,6 +224,14 @@
     <Compile Include="Migrations\202405142201152_updateStudentsandCoursesandGradesFK.Designer.cs">
       <DependentUpon>202405142201152_updateStudentsandCoursesandGradesFK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405150106574_updateInstructor.cs" />
+    <Compile Include="Migrations\202405150106574_updateInstructor.Designer.cs">
+      <DependentUpon>202405150106574_updateInstructor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405150150289_updateModel.cs" />
+    <Compile Include="Migrations\202405150150289_updateModel.Designer.cs">
+      <DependentUpon>202405150150289_updateModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Courses.cs" />
@@ -504,6 +512,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405142201152_updateStudentsandCoursesandGradesFK.resx">
       <DependentUpon>202405142201152_updateStudentsandCoursesandGradesFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405150106574_updateInstructor.resx">
+      <DependentUpon>202405150106574_updateInstructor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405150150289_updateModel.resx">
+      <DependentUpon>202405150150289_updateModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
