@@ -15,6 +15,12 @@ namespace SIS_ITELEC3.Models
         public string Year { get; set; }
         [Required]
         public string Semester { get; set; }
+        public bool isOverload { get; set; }
+
+        public Instructors Instructor { get; set; }
+
+        [Display(Name = "Instructors")]
+        public int InstructorId { get; set; }
 
     }
 }

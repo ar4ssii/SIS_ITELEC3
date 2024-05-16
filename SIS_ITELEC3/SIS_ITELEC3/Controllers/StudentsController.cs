@@ -1,4 +1,5 @@
 ﻿using SIS_ITELEC3.Models;
+using SIS_ITELEC3.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,11 @@ namespace SIS_ITELEC3.Controllers
 
         public ActionResult New()
         {
-            var students = new Students();
-            return View("StudentForm", students);
+            var viewModel = new StudentFormViewModel {
+                Student = new Students(),
+                Course = _context.Courses.ToList()
+            };
+            return View("StudentForm", viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -38,16 +42,27 @@ namespace SIS_ITELEC3.Controllers
             var students = _context.Students.SingleOrDefault(s => s.Id == id);
             if (students == null)
                 return HttpNotFound();
-            return View("StudentForm", students);
+
+            var viewModel = new StudentFormViewModel
+            {
+                Student = students,
+                Course = _context.Courses.ToList()
+            };
+            return View("StudentForm", viewModel);
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Students student)
         {
             if (!ModelState.IsValid)
             {
-                var students = _context.Students.ToList();
-                return View("StudentForm", students);
+                var viewModel = new StudentFormViewModel
+                {
+                    Student = student,
+                    Course = _context.Courses.ToList()
+                };
+                return View("StudentForm", viewModel);
             }
 
             if (student.Id == 0)
@@ -63,6 +78,7 @@ namespace SIS_ITELEC3.Controllers
                 studentInDB.Section = student.Section;
                 studentInDB.Age = student.Age;
                 studentInDB.Birthdate = student.Birthdate;
+                studentInDB.CourseId = student.CourseId;
             }
 
             _context.SaveChanges();

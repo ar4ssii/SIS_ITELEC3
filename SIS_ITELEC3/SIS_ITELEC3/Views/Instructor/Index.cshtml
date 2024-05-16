@@ -1,10 +1,10 @@
-﻿@model IEnumerable<SIS_ITELEC3.Models.Instructors>
-@{
+﻿@{
     ViewBag.Title = "Instructors";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
+
 <p>
     @Html.ActionLink("New Instructor", "New", "Instructor", null, new { @class = "btn btn-primary" })
 </p>
@@ -13,8 +13,6 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Subject</th>
-            <th>Overload Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -35,15 +33,6 @@
                         data: "name",
                         render: function (data, type, instructor) {
                             return "<a href='/instructor/edit/" + instructor.id + "'>" + instructor.name + "</a>";
-                        }
-                    },
-                    {
-                        data: "subject.name",
-                    },
-                    {
-                        data: "isOverload",
-                        render: function (data, type, instructor) {
-                            return data ? "Yes" : "No";
                         }
                     },
                     {

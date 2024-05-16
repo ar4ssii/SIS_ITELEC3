@@ -22,5 +22,7 @@ namespace SIS_ITELEC3.Dtos
         public int Age { get; set; }
         [Required]
         public DateTime Birthdate { get; set; }
+
+        public CoursesDto Course { get; set; }
     }
 }
