@@ -25,10 +25,52 @@ namespace SIS_ITELEC3.Controllers.api
         public IHttpActionResult GetInstructors()
         {
             var instructorsDto = _context.Instructors
-                .Include(i => i.Subject)
                 .ToList()
                 .Select(Mapper.Map<Instructors, InstructorsDto>);
             return Ok(instructorsDto);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetInstructor(int id)
+        {
+            var instructor = _context.Instructors.SingleOrDefault(i => i.Id == id);
+            if (instructor == null)
+                return NotFound();
+            var instructorDto = Mapper.Map<Instructors, InstructorsDto>(instructor);
+            return Ok(instructorDto);
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateInstructor(InstructorsDto instructordto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var instructor = Mapper.Map<InstructorsDto, Instructors>(instructordto);
+
+            _context.Instructors.Add(instructor);
+            _context.SaveChanges();
+
+            instructordto.Id = instructor.Id;
+
+            return Created(new Uri(Request.RequestUri + "/" + instructor.Id), instructordto);
+        }
+
+        [HttpPut]
+        public void UpdateInstructor(int id, InstructorsDto instructordto)
+        {
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            var instructorInDb = _context.Instructors.SingleOrDefault(i => i.Id == id);
+
+            if (instructorInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            Mapper.Map(instructordto, instructorInDb);
+
+            _context.SaveChanges();
+
         }
 
         [HttpDelete]

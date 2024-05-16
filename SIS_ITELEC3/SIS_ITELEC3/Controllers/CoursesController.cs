@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace SIS_ITELEC3.Controllers
 {
-    public class InstructorController : Controller
+    public class CoursesController : Controller
     {
         private ApplicationDbContext _context;
 
-        public InstructorController()
+        public CoursesController()
         {
             _context = new ApplicationDbContext();
         }
@@ -20,8 +20,7 @@ namespace SIS_ITELEC3.Controllers
         {
             _context.Dispose();
         }
-        // GET: Instructor
-
+        // GET: Courses
         public ActionResult Index()
         {
             return View();
@@ -29,43 +28,44 @@ namespace SIS_ITELEC3.Controllers
 
         public ActionResult New()
         {
-            var instructor = new Instructors();
-            return View("InstructorForm", instructor);
+            var course = new Courses();
+            return View("CourseForm", course);
         }
 
         public ActionResult Edit(int id)
         {
-            var instructor = _context.Instructors.SingleOrDefault(i => i.Id == id);
+            var course = _context.Courses.SingleOrDefault(c => c.Id == id);
 
-            if (instructor == null)
+            if (course == null)
                 return HttpNotFound();
 
-            return View("InstructorForm", instructor);
+            return View("CourseForm", course);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Save(Instructors instructor)
+        public ActionResult Save(Courses course)
         {
             if (!ModelState.IsValid)
             {
-                var instructors = _context.Instructors.ToList();
-                return View("InstructorForm", instructors);
+                var courses = _context.Courses.ToList();
+                return View("CourseForm", courses);
             }
 
-            if (instructor.Id == 0)
+            if (course.Id == 0)
             {
-                _context.Instructors.Add(instructor);
+                _context.Courses.Add(course);
             }
             else
             {
-                var instructorInDB = _context.Instructors.Single(i => i.Id == instructor.Id);
-                instructorInDB.Name = instructor.Name;
+                var courseInDB = _context.Courses.Single(c => c.Id == course.Id);
+                courseInDB.Name = course.Name;
+                courseInDB.Description = course.Description;
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Instructor");
+            return RedirectToAction("Index", "Courses");
         }
     }
 }

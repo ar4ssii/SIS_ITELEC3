@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SIS_ITELEC3.Dtos
+namespace SIS_ITELEC3.Models
 {
-    public class StudentsDto
+    public class Students
     {
         public int Id { get; set; }
         [Required]
@@ -21,8 +21,12 @@ namespace SIS_ITELEC3.Dtos
         [Required]
         public int Age { get; set; }
         [Required]
-        public DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; } = DateTime.Now;
 
-        public CoursesDto Course { get; set; }
+        public Courses Course { get; set; }
+
+        [Display(Name = "Courses")]
+        public int CourseId { get; set; }
+
     }
 }

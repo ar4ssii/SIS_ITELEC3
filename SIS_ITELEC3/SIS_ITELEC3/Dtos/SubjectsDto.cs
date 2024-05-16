@@ -15,5 +15,8 @@ namespace SIS_ITELEC3.Dtos
         public string Year { get; set; }
         [Required]
         public string Semester { get; set; }
+        public bool isOverload { get; set; }
+
+        public InstructorsDto Instructor { get; set; }
     }
 }

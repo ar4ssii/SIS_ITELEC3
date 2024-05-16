@@ -9,9 +9,6 @@ namespace SIS_ITELEC3.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool isOverload { get; set; }
-
-        public SubjectsDto Subject { get; set; }
 
     }
 }

@@ -1,6 +1,9 @@
-﻿@model SIS_ITELEC3.viewModels.InstructorFormViewModel
+﻿@model SIS_ITELEC3.Models.Instructors
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.Id == 0 ? "New Instructor" : "Edit Instructor";
+}
+
+@{
 }
 
 <h2>@ViewBag.Title</h2>
@@ -8,25 +11,11 @@
 @using (Html.BeginForm("Save", "Instructor"))
 {
     <div class="form-group">
-        @Html.LabelFor(i => i.Instructor.Name)
-        @Html.TextBoxFor(i => i.Instructor.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(i => i.Instructor.Name)
+        @Html.LabelFor(i => i.Name)
+        @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.Name)
     </div>
-    <div class="form-group">
-        @Html.LabelFor(i => i.Instructor.isOverload)
-        @Html.DropDownListFor(i => i.Instructor.isOverload, new List<SelectListItem>
-        {
-            new SelectListItem { Text = "True", Value = "true" },
-            new SelectListItem { Text = "False", Value = "false" }
-        }, "Select Overload Status", new { @class = "form-control" })
-        @Html.ValidationMessageFor(i => i.Instructor.isOverload)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(i => i.Instructor.SubjectId)
-        @Html.DropDownListFor(i => i.Instructor.SubjectId, new SelectList(Model.Subjects, "Id", "Name"), " ", new { @class = "form-control" })
-        @Html.ValidationMessageFor(i => i.Instructor.SubjectId)
-    </div>
-    @Html.HiddenFor(i => i.Instructor.Id)
+    @Html.HiddenFor(i => i.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

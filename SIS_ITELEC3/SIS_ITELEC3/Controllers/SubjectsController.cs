@@ -1,4 +1,5 @@
 ﻿using SIS_ITELEC3.Models;
+using SIS_ITELEC3.viewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,25 +29,41 @@ namespace SIS_ITELEC3.Controllers
 
         public ActionResult New()
         {
-            var subjects = new Subjects();
-            return View("SubjectForm", subjects);
+            var viewModel = new SubjectFormViewModel
+            {
+                Subject = new Subjects(),
+                Instructor = _context.Instructors.ToList()
+            };
+            return View("SubjectForm", viewModel);
         }
 
         public ActionResult Edit(int id)
         {
-            var subjects = _context.Subjects.SingleOrDefault(s => s.Id == id);
-            if (subjects == null)
+            var subject = _context.Subjects.SingleOrDefault(s => s.Id == id);
+
+            if (subject == null)
                 return HttpNotFound();
-            return View("SubjectForm", subjects);
+
+            var viewModel = new SubjectFormViewModel
+            {
+                Subject = subject,
+                Instructor = _context.Instructors.ToList()
+            };
+            return View("SubjectForm", viewModel);
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Subjects subject)
         {
             if (!ModelState.IsValid)
             {
-                var subjects = _context.Subjects.ToList();
-                return View("SubjectForm", subjects);   
+                var viewModel = new SubjectFormViewModel
+                {
+                    Subject = subject,
+                    Instructor = _context.Instructors.ToList()
+                };
+                return View("SubjectForm", viewModel);   
             }
 
             if (subject.Id == 0)
@@ -59,6 +76,8 @@ namespace SIS_ITELEC3.Controllers
                 subjectInDB.Name = subject.Name;
                 subjectInDB.Year = subject.Year;
                 subjectInDB.Semester = subject.Semester;
+                subjectInDB.isOverload = subject.isOverload;
+                subjectInDB.InstructorId = subject.InstructorId;
             }
 
             _context.SaveChanges();
